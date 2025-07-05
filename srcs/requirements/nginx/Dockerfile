@@ -15,8 +15,10 @@ RUN apt-get update && \
 # Create the directory for WordPress files so the volume can mount
 RUN mkdir -p /var/www/html
 
-# Copy the NGINX configuration template and the setup script
-COPY ./conf/default.conf.template /etc/nginx/nginx.conf
+# Copy the config template directory
+COPY ./conf/ /etc/nginx/templates/
+
+# Copy the setup script and make it executable
 COPY ./tools/setup.sh /usr/local/bin/setup.sh
 RUN chmod +x /usr/local/bin/setup.sh
 

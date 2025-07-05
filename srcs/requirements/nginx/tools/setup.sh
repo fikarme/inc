@@ -2,18 +2,26 @@
 
 set -e
 
+# Check if DOMAIN_NAME is set, because we kinda need it.
+: "${DOMAIN_NAME:?Bruh, set DOMAIN_NAME in your .env file}"
+
+# Create SSL directory if it's not there
+mkdir -p /etc/nginx/ssl
+
 # Generate self-signed SSL certificate if it doesn't exist
-if [ ! -f /etc/ssl/certs/nginx.crt ]; then
-    echo "Generating self-signed SSL certificate..."
+if [ ! -f /etc/nginx/ssl/nginx.crt ]; then
+    echo "SSL cert not found. Generating a new one. Issa vibe."
     openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
-        -keyout /etc/ssl/private/nginx.key \
-        -out /etc/ssl/certs/nginx.crt \
-        -subj "/C=${CERT_COUNTRY}/ST=${CERT_STATE}/L=${CERT_CITY}/O=${CERT_ORG}/CN=${DOMAIN_NAME}"
+        -keyout /etc/nginx/ssl/nginx.key \
+        -out /etc/nginx/ssl/nginx.crt \
+        -subj "/C=TR/ST=Istanbul/L=Esenler/O=42/CN=${DOMAIN_NAME}"
 fi
 
-# Substitute environment variables in the nginx config template
-# and output to the final config file location.
-envsubst '${DOMAIN_NAME}' < /etc/nginx/nginx.conf > /etc/nginx/conf.d/default.conf
+# Substitute env vars in the template to create the final config.
+# This is where the magic happens.
+envsubst '${DOMAIN_NAME}' < /etc/nginx/templates/nginx.cnf > /etc/nginx/conf.d/default.conf
 
-# Execute the CMD from the Dockerfile (i.e., starts nginx)
+echo "NGINX config generated from template. We're live."
+
+# Run the command passed to the script (i.e., starts nginx)
 exec "$@"
