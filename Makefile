@@ -1,4 +1,5 @@
 CMP	= ./srcs/docker-compose.yml
+DCR	= docker compose
 USR	= akdemir
 DIR	= /home/$(USR)/data
 
@@ -7,37 +8,38 @@ all: up
 build:
 	mkdir -p $(DIR)/wordpress
 	mkdir -p $(DIR)/mariadb
-	docker-compose -f $(CMP) build
+	$(DCR) -f $(CMP) build
 
 up: build
-	docker-compose -f $(CMP) up -d
+	$(DCR) -f $(CMP) up -d
 
 down:
-	docker-compose -f $(CMP) down
+	$(DCR) -f $(CMP) down
 
 stop:
-	docker-compose -f $(CMP) stop
+	$(DCR) -f $(CMP) stop
 
 start:
-	docker-compose -f $(CMP) start
+	$(DCR) -f $(CMP) start
 
 clean: down
 	docker system prune -af
 	docker volume prune -af
 
 fclean:
-	docker-compose -f $(CMP) down --volumes --rmi all
+	$(DCR) -f $(CMP) down --volumes --rmi all
 	sudo rm -rf $(DIR)
 
 re: fclean all
 
 logs:
-	docker-compose -f $(CMP) logs
+	$(DCR) -f $(CMP) logs
 
 nuke:
 	- sudo rm -rf $(DIR)
 	- docker stop $$(docker ps -qa)
 	- docker rm $$(docker ps -qa)
+#	- docker rmi -f $$(docker images -qa)
 	- docker rmi -f $$(docker images --format '{{.Repository}}' | grep -v 'debian' | xargs -r docker images -q)
 	- docker volume rm $$(docker volume ls -q)
 	- docker network rm $$(docker network ls -q)

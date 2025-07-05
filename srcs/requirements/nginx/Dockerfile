@@ -16,7 +16,7 @@ RUN apt-get update && \
 RUN mkdir -p /var/www/html
 
 # Copy the NGINX configuration template and the setup script
-COPY ./conf/nginx.conf /etc/nginx/nginx.conf.template
+COPY ./conf/default.conf.template /etc/nginx/nginx.conf
 COPY ./tools/setup.sh /usr/local/bin/setup.sh
 RUN chmod +x /usr/local/bin/setup.sh
 

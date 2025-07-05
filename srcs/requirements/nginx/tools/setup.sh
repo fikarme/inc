@@ -13,7 +13,7 @@ fi
 
 # Substitute environment variables in the nginx config template
 # and output to the final config file location.
-envsubst '${DOMAIN_NAME}' < /etc/nginx/nginx.conf.template > /etc/nginx/conf.d/default.conf
+envsubst '${DOMAIN_NAME}' < /etc/nginx/nginx.conf > /etc/nginx/conf.d/default.conf
 
 # Execute the CMD from the Dockerfile (i.e., starts nginx)
 exec "$@"
