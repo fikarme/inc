@@ -11,6 +11,9 @@ RUN apt-get update && \
     openssl && \
     rm -rf /var/lib/apt/lists/*
 
+# Create the directory for WordPress files so the volume can mount
+RUN mkdir -p /var/www/html
+
 # Copy the NGINX configuration template and the setup script
 COPY ./conf/nginx.conf /etc/nginx/nginx.conf.template
 COPY ./tools/setup.sh /usr/local/bin/setup.sh
