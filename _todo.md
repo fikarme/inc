@@ -43,6 +43,24 @@ ae04513c0d61   nginx       "/usr/local/bin/setu…"   30 seconds ago   Restartin
 root@vbox:/home/akdemir#
 
 
+1241a780bf04_nginx | /usr/local/bin/setup.sh: line 16: envsubst: command not found
+1241a780bf04_nginx | /usr/local/bin/setup.sh: line 16: envsubst: command not found
+1241a780bf04_nginx | /usr/local/bin/setup.sh: line 16: envsubst: command not found
+1241a780bf04_nginx | /usr/local/bin/setup.sh: line 16: envsubst: command not found
+1241a780bf04_nginx | /usr/local/bin/setup.sh: line 16: envsubst: command not found
+1241a780bf04_nginx | /usr/local/bin/setup.sh: line 16: envsubst: command not found
+1241a780bf04_nginx | /usr/local/bin/setup.sh: line 16: envsubst: command not found
+1241a780bf04_nginx | /usr/local/bin/setup.sh: line 16: envsubst: command not found
+mariadb      | Warning: World-writable config file '/etc/mysql/mariadb.conf.d/50-server.cnf' is ignored
+mariadb      | Waiting for MariaDB to start...
+mariadb      | Warning: World-writable config file '/etc/mysql/mariadb.conf.d/50-server.cnf' is ignored
+mariadb      | Warning: World-writable config file '/etc/mysql/mariadb.conf.d/50-server.cnf' is ignored
+mariadb      | 250705 11:47:03 mysqld_safe Logging to syslog.
+mariadb      | 250705 11:47:03 mysqld_safe Starting mariadbd daemon with databases from /var/lib/mysql
+mariadb      | Warning: World-writable config file '/etc/mysql/mariadb.conf.d/50-server.cnf' is ignored
+mariadb      | mysqld is alive
+mariadb      | Warning: World-writable config file '/etc/mysql/mariadb.conf.d/50-server.cnf' is ignored
+
 root@vbox:/home/akdemir# docker images -a
 REPOSITORY   TAG        IMAGE ID       CREATED             SIZE
 <none>       <none>     81e298776520   2 minutes ago       184MB
