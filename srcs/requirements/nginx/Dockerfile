@@ -8,9 +8,10 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     nginx \
-    openssl && \
+    openssl \
+    gettext-base && \
     rm -rf /var/lib/apt/lists/*
-
+	
 # Create the directory for WordPress files so the volume can mount
 RUN mkdir -p /var/www/html
 
