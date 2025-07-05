@@ -1,4 +1,3 @@
-#// filepath: /home/fikarme/inc/srcs/requirements/wordpress/Dockerfile
 # Use the penultimate stable version of Debian
 FROM debian:bullseye
 
