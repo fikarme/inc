@@ -4,7 +4,7 @@
 # Of course, using network: host or --link or links: is forbidden.
 # The network line must be present in your docker-compose.yml file.
 
-# version: '3.7'
+version: '3.7'
 
 services:
   mariadb:
