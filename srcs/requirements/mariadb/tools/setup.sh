@@ -1,50 +1,34 @@
 #!/bin/bash
+set -euo pipefail
 
-set -e
+export MYSQL_ROOT_PASSWORD=$(cat /run/secrets/mysql_root_pass)
+export MYSQL_PASSWORD=$(cat /run/secrets/mysql_pass)
+export MYSQL_DATABASE=${MYSQL_DATABASE:-wordpress}
+export MYSQL_USER=${MYSQL_USER:-akdemir}
 
-# Only run setup if the database directory is empty
-if [ -z "$(ls -A /var/lib/mysql)" ]; then
-    echo "MariaDB data directory is empty. Initializing database..."
-
-    # Initialize the database directory. This is a critical step.
-    mysql_install_db --user=mysql --datadir=/var/lib/mysql
-
-    # Start a temporary server instance
-    mysqld_safe --datadir=/var/lib/mysql &
-    pid="$!"
-
-    # Wait for the server to be ready
-    until mysqladmin ping --silent; do
-        echo "Waiting for MariaDB to start..."
-        sleep 2
-    done
-
-    # Read passwords from Docker secrets
-    DB_ROOT_PASS=$(cat /run/secrets/db_root_pass)
-    DB_PASS=$(cat /run/secrets/db_pass)
-
-    # Execute setup SQL. This is where the magic happens.
-    mariadb -u root <<-EOSQL
-        ALTER USER 'root'@'localhost' IDENTIFIED BY '${DB_ROOT_PASS}';
-        DELETE FROM mysql.user WHERE User='';
-        DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
-        DROP DATABASE IF EXISTS test;
-        DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';
-        CREATE DATABASE IF NOT EXISTS \`${DB_NAME}\`;
-        CREATE USER IF NOT EXISTS '${DB_USER}'@'%' IDENTIFIED BY '${DB_PASS}';
-        GRANT ALL PRIVILEGES ON \`${DB_NAME}\`.* TO '${DB_USER}'@'%';
-        FLUSH PRIVILEGES;
-EOSQL
-
-    # Stop the temporary server
-    kill "$pid"
-    # Wait for process to die
-    wait "$pid"
-    echo "MariaDB initialization complete."
-else
-    echo "MariaDB database already exists. Skipping initialization."
+if [ ! -d "/var/lib/mysql/mysql" ]; then
+  echo "[INFO] Initializing database..."
+  mysqld --initialize-insecure --user=mysql
 fi
 
-# This is the main event: exec "$@" runs the CMD from the Dockerfile.
-# This starts the MariaDB server in the foreground, making it PID 1.
-exec "$@"
+mysqld --user=mysql &
+PID=$!
+echo "[INFO] Waiting for MariaDB..."
+timeout 30 bash -c 'until mysqladmin ping --silent; do sleep 1; done'
+
+echo "[INFO] Setting root password..."
+cat > /root/.my.cnf <<EOF
+[client]
+user=root
+password=$MYSQL_ROOT_PASSWORD
+EOF
+chmod 600 /root/.my.cnf
+mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}';"
+
+echo "[INFO] Running init.sql..."
+envsubst < /tmp/set.sql > /docker-entrypoint-initdb.d/init.sql
+mysql < /docker-entrypoint-initdb.d/init.sql
+
+rm -f /root/.my.cnf /docker-entrypoint-initdb.d/init.sql
+wait "$PID"
+echo "[INFO] MariaDB setup complete."

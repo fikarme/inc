@@ -4,15 +4,21 @@ FROM debian:bullseye
 # Tell debconf to not be interactive.
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Update packages and install MariaDB server & client in one layer
+# Install necessary packages in one go. More efficient, less layers.
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
+    php-fpm \
+    php-mysql \
     mariadb-server \
-    mariadb-client && \
+    mariadb-client \
+    curl \
+    ca-certificates && \
     rm -rf /var/lib/apt/lists/*
 
 # Copy the custom MariaDB configuration file
-COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
+COPY ./conf/50-server.conf /etc/mysql/mariadb.conf.d/50-server.cnf
+COPY ./tools/init.sql /tmp/set.sql
+
 
 # Copy the setup script
 COPY ./tools/setup.sh /usr/local/bin/setup.sh

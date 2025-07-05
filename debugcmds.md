@@ -19,3 +19,15 @@ docker exec -it wordpress php-fpm7.4 -t
 # Should return "configuration file test is successful"
 
 sudo docker exec -it wordpress mysql -h mariadb -u akdemir -pmeys -e "SELECT 1;"
+
+# Test if MariaDB is actually listening
+sudo docker exec -it mariadb ss -tlnp | grep 3306
+
+# Check if WordPress can reach MariaDB
+sudo docker exec -it wordpress nc -zv mariadb 3306
+
+# Test database connection with correct command
+sudo docker exec -it wordpress mysql -h mariadb -u akdemir -pmeys -e "SELECT 1;"
+
+# Check current env values
+sudo docker exec -it wordpress env | grep -E "(DB_|MYSQL_)"
