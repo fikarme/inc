@@ -1,5 +1,5 @@
 CMP	= ./srcs/docker-compose.yml
-USR	= $(shell whoami)
+USR	= akdemir
 DIR	= /home/$(USR)/data
 
 all: up
