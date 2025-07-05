@@ -13,3 +13,8 @@ The 42 Way:
 This pattern is the canonical solution for Inception. It proves you understand the difference between an official image with built-in secret handling (like MariaDB's _FILE variables) and a situation where you have to roll your own secure implementation.
 
 Once the container starts, Docker takes that secret and mounts it as a file inside the container. It doesn't use the host path. By default, all secrets live in a special, secure spot: /run/secrets/.
+
+
+in dockerfile
+ENV DEBIAN_FRONTEND=noninteractive
+for debconf warnings

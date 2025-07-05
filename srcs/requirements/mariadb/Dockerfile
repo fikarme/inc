@@ -3,8 +3,8 @@ FROM debian:bullseye
 
 # Update packages and install MariaDB server & client
 RUN apt-get update && \
-    apt-get install -y mariadb-server mariadb-client && \
 	apt-get install -y apt-utils && \
+    apt-get install -y mariadb-server mariadb-client && \
     rm -rf /var/lib/apt/lists/*
 
 # Copy the custom MariaDB configuration file
