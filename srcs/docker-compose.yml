@@ -89,10 +89,10 @@ volumes:
 
 secrets:
   db_pass:
-    file: /run/secrets/db_pass
+    file: ./secrets/db_pass
   db_root_pass:
-    file: /run/secrets/db_root_pass
+    file: ./secrets/db_root_pass
   wp_admin_password:
-    file: /run/secrets/wp_admin_password
+    file: ./secrets/wp_admin_password
   wp_user_password:
-    file: /run/secrets/wp_user_password
+    file: ./secrets/wp_user_password
