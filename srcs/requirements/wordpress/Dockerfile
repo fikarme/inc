@@ -9,7 +9,8 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     php-fpm \
     php-mysql \
-    curl && \
+    curl \
+    ca-certificates && \
     rm -rf /var/lib/apt/lists/*
 
 # Download and install wp-cli, the WordPress command-line tool
