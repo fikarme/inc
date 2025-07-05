@@ -44,8 +44,8 @@ services:
       - inception-network
     secrets:
       - db_pass
-      - wp_admin_password
-      - wp_user_password
+      - wp_admin_pass
+      - wp_user_pass
     expose:
       - "9000"
     restart: always
@@ -92,7 +92,7 @@ secrets:
     file: ./secrets/db_pass
   db_root_pass:
     file: ./secrets/db_root_pass
-  wp_admin_password:
-    file: ./secrets/wp_admin_password
   wp_user_password:
-    file: ./secrets/wp_user_password
+    file: ./secrets/wp_user_pass
+  wp_admin_password:
+    file: ./secrets/wp_admin_pass
