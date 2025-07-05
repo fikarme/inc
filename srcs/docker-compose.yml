@@ -79,13 +79,13 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/${LOGIN}/data/mariadb
+      device: /home/akdemir/data/mariadb
   wordpressVol:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/${LOGIN}/data/wordpress
+      device: /home/akdemir/data/wordpress
 
 secrets:
   db_pass:
