@@ -42,4 +42,10 @@ nuke:
 	docker volume rm $$(docker volume ls -q)
 	docker network rm $$(docker network ls -q)
 
-.PHONY: all build up down stop start fclean re logs nuke
+status:
+	docker ps -a
+	docker images
+	docker volume ls
+	docker network ls
+
+.PHONY: all build up down stop start fclean re logs nuke status
