@@ -1,10 +1,14 @@
 # Use the penultimate stable version of Debian
 FROM debian:bullseye
 
-# Install NGINX and OpenSSL
+# Tell debconf to not be interactive. This is the main character.
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install NGINX and OpenSSL in a single, optimized layer
 RUN apt-get update && \
-	apt-get install -y apt-utils && \
-    apt-get install -y nginx openssl && \
+    apt-get install -y --no-install-recommends \
+    nginx \
+    openssl && \
     rm -rf /var/lib/apt/lists/*
 
 # Copy the NGINX configuration template and the setup script

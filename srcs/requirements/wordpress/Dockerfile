@@ -1,10 +1,15 @@
 # Use the penultimate stable version of Debian
 FROM debian:bullseye
 
-# Install necessary packages: PHP-FPM, MariaDB client (for DB connection), curl, and wp-cli dependencies
+# Tell debconf to not be interactive.
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install necessary packages in one go. More efficient, less layers.
 RUN apt-get update && \
-	apt-get install -y apt-utils && \
-    apt-get install -y php-fpm php-mysql curl && \
+    apt-get install -y --no-install-recommends \
+    php-fpm \
+    php-mysql \
+    curl && \
     rm -rf /var/lib/apt/lists/*
 
 # Download and install wp-cli, the WordPress command-line tool

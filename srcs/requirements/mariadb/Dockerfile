@@ -1,10 +1,14 @@
 # Use the penultimate stable version of Debian
 FROM debian:bullseye
 
-# Update packages and install MariaDB server & client
+# Tell debconf to not be interactive.
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Update packages and install MariaDB server & client in one layer
 RUN apt-get update && \
-	apt-get install -y apt-utils && \
-    apt-get install -y mariadb-server mariadb-client && \
+    apt-get install -y --no-install-recommends \
+    mariadb-server \
+    mariadb-client && \
     rm -rf /var/lib/apt/lists/*
 
 # Copy the custom MariaDB configuration file
