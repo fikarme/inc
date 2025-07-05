@@ -14,6 +14,9 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 # Create the directory for WordPress files
 RUN mkdir -p /var/www/html
 
+# Copy the custom PHP-FPM pool configuration. This is the glow-up.
+COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
+
 # Copy the setup script that will configure WordPress
 COPY ./tools/setup.sh /usr/local/bin/setup.sh
 RUN chmod +x /usr/local/bin/setup.sh
