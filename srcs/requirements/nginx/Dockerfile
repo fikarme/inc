@@ -11,7 +11,7 @@ RUN apt-get update && \
     openssl \
     gettext-base && \
     rm -rf /var/lib/apt/lists/*
-	
+
 # Create the directory for WordPress files so the volume can mount
 RUN mkdir -p /var/www/html
 
