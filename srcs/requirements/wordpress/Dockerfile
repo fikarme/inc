@@ -4,6 +4,7 @@ FROM debian:bullseye
 # Install necessary packages: PHP-FPM, MariaDB client (for DB connection), curl, and wp-cli dependencies
 RUN apt-get update && \
     apt-get install -y php-fpm php-mysql curl && \
+	apt-get install -y apt-utils && \
     rm -rf /var/lib/apt/lists/*
 
 # Download and install wp-cli, the WordPress command-line tool

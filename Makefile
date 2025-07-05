@@ -5,9 +5,8 @@ DIR	= /home/$(USR)/data
 all: up
 
 build:
-	mkdir $(DIR)
-	mkdir $(DIR)/wordpress
-	mkdir $(DIR)/mariadb
+	mkdir -p $(DIR)/wordpress
+	mkdir -p $(DIR)/mariadb
 	docker-compose -f $(CMP) build
 
 up: build

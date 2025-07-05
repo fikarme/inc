@@ -4,6 +4,7 @@ FROM debian:bullseye
 # Install NGINX and OpenSSL
 RUN apt-get update && \
     apt-get install -y nginx openssl && \
+	apt-get install -y apt-utils && \
     rm -rf /var/lib/apt/lists/*
 
 # Copy the NGINX configuration template and the setup script
