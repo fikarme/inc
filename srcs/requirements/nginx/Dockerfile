@@ -1,32 +1,37 @@
-# Use the penultimate stable version of Debian
 FROM debian:bullseye
 
-# Tell debconf to not be interactive. This is the main character.
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install NGINX and OpenSSL in a single, optimized layer
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-    nginx \
-    openssl \
-    gettext-base && \
+        curl \
+        iputils-ping \
+        nginx \
+        openssl && \
+    apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# Create the directory for WordPress files so the volume can mount
-RUN mkdir -p /var/www/html
+# Nginx dizinlerini oluştur ve varsayılan siteleri kaldır
+RUN mkdir -p /etc/nginx/ssl /var/log/nginx /var/www/html && \
+    chown -R www-data:www-data /var/log/nginx /etc/nginx/ssl /var/www/html && \
+    chmod -R 755 /var/log/nginx /etc/nginx/ssl /var/www/html && \
+    rm -f /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 
-# Copy the config template directory
-COPY ./conf/ /etc/nginx/templates/
+# Server konfigürasyonunu kopyala
+COPY conf/server.conf /etc/nginx/sites-enabled/
 
-# Copy the setup script and make it executable
-COPY ./tools/setup.sh /usr/local/bin/setup.sh
-RUN chmod +x /usr/local/bin/setup.sh
+RUN ln -sf /dev/stdout /var/log/nginx/access.log && \
+    ln -sf /dev/stderr /var/log/nginx/error.log
 
-# Expose the HTTPS port
+# SSL sertifikası oluştur
+RUN openssl req -x509 -nodes -days 365 \
+    -newkey rsa:2048 \
+    -keyout /etc/ssl/private/ssl.key \
+    -out /etc/ssl/certs/ssl.crt \
+    -subj "/C=TR/ST=ISTANBUL/L=SARIYER/O=42/CN=akdemir.42.fr" && \
+    chmod 600 /etc/ssl/private/ssl.key && \
+    chmod 644 /etc/ssl/certs/ssl.crt
+
 EXPOSE 443
 
-# Run the setup script as the entrypoint
-ENTRYPOINT ["/usr/local/bin/setup.sh"]
-
-# The command to run NGINX in the foreground
 CMD ["nginx", "-g", "daemon off;"]
