@@ -2,12 +2,14 @@ CMP	= ./srcs/docker-compose.yml
 DCR	= docker compose
 USR	= akdemir
 DIR	= /home/$(USR)/data
+DMN = $(USR).42.fr
 
 all: up
 
 build:
 	mkdir -p $(DIR)/wordpress
 	mkdir -p $(DIR)/mariadb
+	chown -R $(USR):$(USR) $(DIR)
 	$(DCR) -f $(CMP) build
 
 up: build
@@ -50,4 +52,16 @@ status:
 	docker volume ls
 	docker network ls
 
-.PHONY: all build up down stop start fclean re logs nuke status
+test:
+	@curl -k -s -o /dev/null -w "Status: %{http_code}\n" https://$(DMN)/ || echo "❌ NGINX test failed"
+	@curl -k -s https://$(DMN)/ | grep -q "WordPress\|wp-" && echo "✅ WordPress detected" || echo "❌ WordPress test failed"
+	@$(DCR) -f srcs/docker-compose.yml ps | grep -q "Up" && echo "✅ Containers running" || echo "❌ Container test failed"
+	@$(DCR) -f srcs/docker-compose.yml config -q && echo "✅ docker-compose.yml is valid" || echo "❌ docker-compose.yml validation failed"
+
+addhost:
+	@if ! grep -q "$(DMN)" /etc/hosts; then \
+		sudo sed -i.bak "/\s$(DMN)$$/d" /etc/hosts; \
+		echo "127.0.0.1 $(DMN)" | sudo tee -a /etc/hosts > /dev/null; \
+	fi
+
+.PHONY: all build up down stop start fclean re logs nuke status test addhost

@@ -52,8 +52,12 @@ fi
 
 # Fix file permissions for security on every start
 chown -R www-data:www-data /var/www/html
-chmod -R 755 /var/www/html
+find /var/www/html -type d -exec chmod 755 {} \;
+find /var/www/html -type f -exec chmod 644 {} \;
 
+echo "Permissions are set. Issa vibe."
+
+# Now, start the main process (php-fpm)
 # This is the key part: `exec "$@"` runs the CMD from the Dockerfile.
 # This passes control to php-fpm, making it the main process (PID 1).
 exec "$@"
