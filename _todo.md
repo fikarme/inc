@@ -1,6 +1,10 @@
 sudo docker events
 mariadb dockerfilenda sh olup olmaması
 
+i dont have any init.sql
+
+setup mariadb database even if already exists
+
 fix esenler to sarıyer
 
 So how do you use the secrets? For WordPress, the secrets (wp_admin_password, wp_user_password) are still mounted to /run/secrets/ inside the container. But it's now the job of your custom entrypoint script (the .sh file you call in your WordPress Dockerfile) to handle them.
