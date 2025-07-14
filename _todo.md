@@ -1,3 +1,6 @@
+docker-compose -f ./srcs/docker-compose.yml config
+neden alfabetik sıralama yapıyor?
+
 sudo docker events
 mariadb dockerfilenda sh olup olmaması
 
