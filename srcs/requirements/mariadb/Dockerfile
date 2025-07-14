@@ -5,6 +5,9 @@ FROM debian:bullseye
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Install necessary packages in one go. More efficient, less layers.
+RUN mkdir -p /run/mysqld && \
+    chown mysql:mysql /run/mysqld
+
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     php-fpm \
@@ -17,8 +20,10 @@ RUN apt-get update && \
 
 # Copy the custom MariaDB configuration file
 COPY ./conf/50-server.conf /etc/mysql/mariadb.conf.d/50-server.cnf
-COPY ./tools/init.sql /tmp/set.sql
+RUN chmod 644 /etc/mysql/mariadb.conf.d/50-server.cnf
 
+COPY ./tools/init.sql /tmp/set.sql
+RUN chmod 644 /tmp/set.sql
 
 # Copy the setup script
 COPY ./tools/setup.sh /usr/local/bin/setup.sh
