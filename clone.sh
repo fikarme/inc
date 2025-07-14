@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd ..
+
 rm -rf inc
 rm -rf data
 
