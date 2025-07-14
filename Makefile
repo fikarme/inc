@@ -11,7 +11,7 @@ build:
 	mkdir -p $(DIR)/wordpress $(DIR)/mariadb
 	sudo chown -R $(USR):$(USR) $(DIR)
 	sudo chmod -R 755 $(DIR)
-	$(DCR) -f $(CMP) build -d
+	$(DCR) -f $(CMP) build
 
 up: build
 	$(DCR) -f $(CMP) up -d
