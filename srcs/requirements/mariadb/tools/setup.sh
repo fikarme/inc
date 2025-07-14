@@ -26,9 +26,15 @@ chmod 600 /root/.my.cnf
 mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}';"
 
 echo "[INFO] Running init.sql..."
+# Create the directory first - this is the missing piece
+mkdir -p /docker-entrypoint-initdb.d
 envsubst < /tmp/set.sql > /docker-entrypoint-initdb.d/init.sql
 mysql < /docker-entrypoint-initdb.d/init.sql
 
 rm -f /root/.my.cnf /docker-entrypoint-initdb.d/init.sql
+kill "$PID"
 wait "$PID"
+
 echo "[INFO] MariaDB setup complete."
+# Hand control to the CMD
+exec "$@"

@@ -11,7 +11,7 @@ RUN apt-get update && \
     php-mysql \
     mariadb-server \
     mariadb-client \
-	gettext-base && \
+    gettext-base \
     curl \
     ca-certificates && \
     rm -rf /var/lib/apt/lists/*
