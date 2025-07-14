@@ -1,5 +1,5 @@
 CMP	= ./srcs/docker-compose.yml
-DCR	= docker compose
+DCR	= docker-compose
 USR	= akdemir
 DIR	= /home/$(USR)/data
 DMN = $(USR).42.fr
@@ -7,9 +7,13 @@ DMN = $(USR).42.fr
 all: up
 
 build:
+	- rm -rf $(DIR)
+	mkdir -p $(DIR)
+	chmod -R 777 $(DIR)
 	mkdir -p $(DIR)/wordpress
 	mkdir -p $(DIR)/mariadb
 	chown -R $(USR):$(USR) $(DIR)
+	chmod -R 777 $(DIR)
 	$(DCR) -f $(CMP) build
 
 up: build
