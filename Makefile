@@ -73,11 +73,8 @@ debug:
 	echo "=== Data Directory ==="
 	ls -la $(DIR)
 	echo "=== Volume Inspect ==="
-	docker volume inspect srcs_wordpressVol 2>/dev/null || echo "Volume not found"
-	docker volume inspect srcs_mariadbVol 2>/dev/null || echo "Volume not found"
-	echo "=== Network Status ==="
-	docker network ls
-	echo "=== Docker Compose Config ==="
+	docker volume inspect srcs_wordpressVolx || echo "Volume not found"
+	docker volume inspect srcs_mariadbVol || echo "Volume not found"
 	$(DCR) -f $(CMP) config
 
 
