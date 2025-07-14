@@ -1,0 +1,139 @@
+docker-compose -f ./srcs/docker-compose.yml config
+networks:
+  inception-network:
+    driver: bridge
+    name: inception-network
+secrets:
+  db_pass:
+    file: /home/akdemir/inc/srcs/secrets/db_pass
+  db_root_pass:
+    file: /home/akdemir/inc/srcs/secrets/db_root_pass
+  mysql_pass:
+    file: /home/akdemir/inc/srcs/secrets/mysql_pass
+  mysql_root_pass:
+    file: /home/akdemir/inc/srcs/secrets/mysql_root_pass
+  wp_admin_pass:
+    file: /home/akdemir/inc/srcs/secrets/wp_admin_pass
+  wp_user_pass:
+    file: /home/akdemir/inc/srcs/secrets/wp_user_pass
+services:
+  mariadb:
+    build:
+      context: /home/akdemir/inc/srcs/requirements/mariadb
+      dockerfile: Dockerfile
+    container_name: mariadb
+    environment:
+      CERT_CITY: Istanbul
+      CERT_COMMON_NAME: $${WP_URL}
+      CERT_COUNTRY: TR
+      CERT_ORG: 42Istanbul
+      CERT_STATE: Istanbul
+      DB_HOST: mariadb
+      DB_NAME: wordpress
+      DB_USER: $${LOGIN}
+      DOMAIN_NAME: $${LOGIN}.42.fr
+      LOGIN: akdemir
+      MYSQL_PASSWORD_FILE: /run/secrets/mysql_pass
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql_root_pass
+      WP_ADMIN_EMAIL: $${LOGIN}+wpadm@student.42istanbul.com.tr
+      WP_ADMIN_USER: $${LOGIN}
+      WP_EMAIL: $${LOGIN}+wpuser@student.$${DOMAIN_NAME}
+      WP_TITLE: Inception Project by $${LOGIN}
+      WP_URL: 'https://$${DOMAIN_NAME} # https:// olması lazım mı'
+      WP_USER: $${LOGIN}
+    expose:
+    - '3306'
+    image: mariadb
+    networks:
+      inception-network: null
+    restart: always
+    secrets:
+    - source: mysql_pass
+    - source: mysql_root_pass
+    volumes:
+    - mariadbVol:/var/lib/mysql:rw
+  nginx:
+    build:
+      context: /home/akdemir/inc/srcs/requirements/nginx
+      dockerfile: Dockerfile
+    container_name: nginx
+    depends_on:
+    - wordpress
+    environment:
+      CERT_CITY: Istanbul
+      CERT_COMMON_NAME: $${WP_URL}
+      CERT_COUNTRY: TR
+      CERT_ORG: 42Istanbul
+      CERT_STATE: Istanbul
+      DB_HOST: mariadb
+      DB_NAME: wordpress
+      DB_USER: $${LOGIN}
+      DOMAIN_NAME: $${LOGIN}.42.fr
+      LOGIN: akdemir
+      WP_ADMIN_EMAIL: $${LOGIN}+wpadm@student.42istanbul.com.tr
+      WP_ADMIN_USER: $${LOGIN}
+      WP_EMAIL: $${LOGIN}+wpuser@student.$${DOMAIN_NAME}
+      WP_TITLE: Inception Project by $${LOGIN}
+      WP_URL: 'https://$${DOMAIN_NAME} # https:// olması lazım mı'
+      WP_USER: $${LOGIN}
+    image: nginx
+    networks:
+      inception-network: null
+    ports:
+    - published: 443
+      target: 443
+    restart: always
+    volumes:
+    - wordpressVol:/var/www/html:rw
+  wordpress:
+    build:
+      context: /home/akdemir/inc/srcs/requirements/wordpress
+      dockerfile: Dockerfile
+    container_name: wordpress
+    depends_on:
+    - mariadb
+    environment:
+      CERT_CITY: Istanbul
+      CERT_COMMON_NAME: $${WP_URL}
+      CERT_COUNTRY: TR
+      CERT_ORG: 42Istanbul
+      CERT_STATE: Istanbul
+      DB_HOST: mariadb
+      DB_NAME: wordpress
+      DB_PASS_FILE: /run/secrets/db_pass
+      DB_USER: $${LOGIN}
+      DOMAIN_NAME: $${LOGIN}.42.fr
+      LOGIN: akdemir
+      WP_ADMIN_EMAIL: $${LOGIN}+wpadm@student.42istanbul.com.tr
+      WP_ADMIN_USER: $${LOGIN}
+      WP_EMAIL: $${LOGIN}+wpuser@student.$${DOMAIN_NAME}
+      WP_TITLE: Inception Project by $${LOGIN}
+      WP_URL: 'https://$${DOMAIN_NAME} # https:// olması lazım mı'
+      WP_USER: $${LOGIN}
+    expose:
+    - '9000'
+    image: wordpress
+    networks:
+      inception-network: null
+    restart: always
+    secrets:
+    - source: db_pass
+    - source: wp_admin_pass
+    - source: wp_user_pass
+    volumes:
+    - wordpressVol:/var/www/html:rw
+version: '3.7'
+volumes:
+  mariadbVol:
+    driver: local
+    driver_opts:
+      device: /home/akdemir/data/mariadb
+      o: bind
+      type: none
+  wordpressVol:
+    driver: local
+    driver_opts:
+      device: /home/akdemir/data/wordpress
+      o: bind
+      type: none
+
