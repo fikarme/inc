@@ -5,18 +5,19 @@ FROM debian:bullseye
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Install necessary packages in one go. More efficient, less layers.
-RUN mkdir -p /run/mysqld && \
-    chown mysql:mysql /run/mysqld
-
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     php-fpm \
     php-mysql \
     mariadb-server \
     mariadb-client \
+	gettext-base && \
     curl \
     ca-certificates && \
     rm -rf /var/lib/apt/lists/*
+
+RUN mkdir -p /run/mysqld && \
+    chown mysql:mysql /run/mysqld
 
 # Copy the custom MariaDB configuration file
 COPY ./conf/50-server.conf /etc/mysql/mariadb.conf.d/50-server.cnf

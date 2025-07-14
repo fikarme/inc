@@ -77,15 +77,12 @@ debug:
 	docker volume inspect srcs_mariadbVol || echo "Volume not found"
 	$(DCR) -f $(CMP) config
 
-
 perms:
 	sudo chown -R $(USR):$(USR) $(DIR)
 	sudo chmod -R 755 $(DIR)
 
 chat:
 	curl -k https://akdemir.42.fr/
-	docker logs wordpress
-	docker logs mariadb
 	docker exec mariadb mysql -u root -p$(cat srcs/secrets/mysql_root_pass) -e "SHOW DATABASES;"
 
 
