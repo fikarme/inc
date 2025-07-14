@@ -86,5 +86,7 @@ chat:
 	docker exec mariadb mysql -u root -p$(cat srcs/secrets/mysql_root_pass) -e "SHOW DATABASES;"
 	docker exec mariadb mysql -u akdemir -pmeys -e "SHOW DATABASES;"
 	docker exec wordpress mysql -h mariadb -u akdemir -pmeys -e "SELECT 1;"
+	docker exec mariadb ss -tlnp | grep 3306
+	docker exec wordpress nc -zv mariadb 3306
 
 .PHONY: all build up down stop start fclean re logs nuke status test addhost debug perms
