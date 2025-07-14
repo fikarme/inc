@@ -9,7 +9,7 @@ if [ ! -f "/var/www/html/wp-config.php" ]; then
 
     # Wait for MariaDB to be ready before proceeding.
     # This is a simple loop that checks if a connection can be made.
-    until mariadb -h ${DB_HOST} -u ${DB_USER} -p"$(cat /run/secrets/db_pass)" -e "SELECT 1;" >/dev/null 2>&1; do
+    until mysql -h ${DB_HOST} -u ${DB_USER} -p"$(cat /run/secrets/db_pass)" -e "SELECT 1;" >/dev/null 2>&1; do
         echo "Waiting for MariaDB connection..."
         sleep 2
     done
