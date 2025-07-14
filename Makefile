@@ -7,13 +7,10 @@ DMN = $(USR).42.fr
 all: up
 
 build:
-	- rm -rf $(DIR)
-	mkdir -p $(DIR)
-	chmod -R 777 $(DIR)
-	mkdir -p $(DIR)/wordpress
-	mkdir -p $(DIR)/mariadb
-	chown -R $(USR):$(USR) $(DIR)
-	chmod -R 777 $(DIR)
+    sudo rm -rf $(DIR)
+    mkdir -p $(DIR)/wordpress $(DIR)/mariadb
+    sudo chown -R $(USR):$(USR) $(DIR)
+    sudo chmod -R 755 $(DIR)
 	$(DCR) -f $(CMP) build
 
 up: build
@@ -68,4 +65,21 @@ addhost:
 		echo "127.0.0.1 $(DMN)" | sudo tee -a /etc/hosts > /dev/null; \
 	fi
 
-.PHONY: all build up down stop start fclean re logs nuke status test addhost
+debug:
+    @echo "=== Container Status ==="
+    @docker ps -a
+    @echo "=== Volume Status ==="
+    @docker volume ls
+    @echo "=== Data Directory ==="
+    @ls -la $(DIR)
+    @echo "=== Volume Inspect ==="
+    @docker volume inspect srcs_wordpressVol 2>/dev/null || echo "Volume not found"
+
+perms:
+    sudo rm -rf $(DIR)
+    mkdir -p $(DIR)/wordpress $(DIR)/mariadb
+    sudo chown -R $(USR):$(USR) $(DIR)
+    sudo chmod -R 755 $(DIR)
+
+
+.PHONY: all build up down stop start fclean re logs nuke status test addhost debug perms
