@@ -1,4 +1,4 @@
-docker-compose -f ./srcs/docker-compose.yml config
+#docker-compose -f ./srcs/docker-compose.yml config
 networks:
   inception-network:
     driver: bridge
@@ -39,7 +39,7 @@ services:
       WP_ADMIN_USER: $${LOGIN}
       WP_EMAIL: $${LOGIN}+wpuser@student.$${DOMAIN_NAME}
       WP_TITLE: Inception Project by $${LOGIN}
-      WP_URL: 'https://$${DOMAIN_NAME} # https:// olması lazım mı'
+      WP_URL: 'https://$${DOMAIN_NAME}
       WP_USER: $${LOGIN}
     expose:
     - '3306'
@@ -74,7 +74,7 @@ services:
       WP_ADMIN_USER: $${LOGIN}
       WP_EMAIL: $${LOGIN}+wpuser@student.$${DOMAIN_NAME}
       WP_TITLE: Inception Project by $${LOGIN}
-      WP_URL: 'https://$${DOMAIN_NAME} # https:// olması lazım mı'
+      WP_URL: 'https://$${DOMAIN_NAME}
       WP_USER: $${LOGIN}
     image: nginx
     networks:
@@ -108,7 +108,7 @@ services:
       WP_ADMIN_USER: $${LOGIN}
       WP_EMAIL: $${LOGIN}+wpuser@student.$${DOMAIN_NAME}
       WP_TITLE: Inception Project by $${LOGIN}
-      WP_URL: 'https://$${DOMAIN_NAME} # https:// olması lazım mı'
+      WP_URL: 'https://$${DOMAIN_NAME}
       WP_USER: $${LOGIN}
     expose:
     - '9000'
@@ -136,4 +136,3 @@ volumes:
       device: /home/akdemir/data/wordpress
       o: bind
       type: none
-

@@ -23,6 +23,8 @@ services:
     networks:
       - inception-network
     secrets:
+      - db_pass
+      - db_root_pass
       - mysql_pass
       - mysql_root_pass
     expose:

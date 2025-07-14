@@ -79,10 +79,14 @@ debug:
 
 
 perms:
-	sudo rm -rf $(DIR)
-	mkdir -p $(DIR)/wordpress $(DIR)/mariadb
 	sudo chown -R $(USR):$(USR) $(DIR)
 	sudo chmod -R 755 $(DIR)
+
+chat:
+	curl -k https://akdemir.42.fr/
+	docker logs wordpress
+	docker logs mariadb
+	docker exec mariadb mysql -u root -p$(cat srcs/secrets/mysql_root_pass) -e "SHOW DATABASES;"
 
 
 .PHONY: all build up down stop start fclean re logs nuke status test addhost debug perms
