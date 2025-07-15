@@ -4,7 +4,7 @@ set -euo pipefail
 export MYSQL_ROOT_PASSWORD=$(cat /run/secrets/mysql_root_pass)
 export MYSQL_PASSWORD=$(cat /run/secrets/mysql_pass)
 export MYSQL_DATABASE=${MYSQL_DATABASE:-wordpress}
-export MYSQL_USER=${MYSQL_USER:-akdemir}
+export MYSQL_USER=${MYSQL_USER:-fi}
 
 if [ ! -d "/var/lib/mysql/mysql" ]; then
   echo "[INFO] Initializing database..."

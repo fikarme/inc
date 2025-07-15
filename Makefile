@@ -1,6 +1,6 @@
 CMP	= ./srcs/docker-compose.yml
 DCR	= docker-compose
-USR	= akdemir
+USR	= fi
 DIR	= /home/$(USR)/data
 DMN = $(USR).42.fr
 
@@ -82,10 +82,10 @@ perms:
 	sudo chmod -R 755 $(DIR)
 
 chat:
-	curl -k https://akdemir.42.fr/
+	curl -k https://fi.42.fr/
 	docker exec mariadb mysql -u root -p$(cat srcs/secrets/mysql_root_pass) -e "SHOW DATABASES;"
-	docker exec mariadb mysql -u akdemir -pmeys -e "SHOW DATABASES;"
-	docker exec wordpress mysql -h mariadb -u akdemir -pmeys -e "SELECT 1;"
+	docker exec mariadb mysql -u fi -pmeys -e "SHOW DATABASES;"
+	docker exec wordpress mysql -h mariadb -u fi -pmeys -e "SELECT 1;"
 	docker exec mariadb ss -tlnp | grep 3306
 	docker exec wordpress nc -zv mariadb 3306
 

@@ -28,7 +28,7 @@ RUN openssl req -x509 -nodes -days 365 \
     -newkey rsa:2048 \
     -keyout /etc/ssl/private/ssl.key \
     -out /etc/ssl/certs/ssl.crt \
-    -subj "/C=TR/ST=ISTANBUL/L=SARIYER/O=42/CN=akdemir.42.fr" && \
+    -subj "/C=TR/ST=ISTANBUL/L=SARIYER/O=42/CN=fi.42.fr" && \
     chmod 600 /etc/ssl/private/ssl.key && \
     chmod 644 /etc/ssl/certs/ssl.crt
 

@@ -19,7 +19,7 @@ DOMAINS=(
     "ibkocak.42.fr"
     "hatice.42.fr"
     "ctasar.42.fr"
-    "akdemir.42.fr"
+    "fi.42.fr"
     "relvan.42.fr"
 )
 IPV6_PATTERN="IPv6"

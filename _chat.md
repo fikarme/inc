@@ -1,17 +1,17 @@
-root@vbox:/home/akdemir# ping akdemir.42.fr
-PING akdemir.42.fr (127.0.0.1) 56(84) bytes of data.
+root@vbox:/home/fi# ping fi.42.fr
+PING fi.42.fr (127.0.0.1) 56(84) bytes of data.
 64 bytes from localhost (127.0.0.1): icmp_seq=1 ttl=64 time=0.067 ms
 64 bytes from localhost (127.0.0.1): icmp_seq=2 ttl=64 time=0.040 ms
 64 bytes from localhost (127.0.0.1): icmp_seq=3 ttl=64 time=0.030 ms
 64 bytes from localhost (127.0.0.1): icmp_seq=4 ttl=64 time=0.031 ms
 ^C
---- akdemir.42.fr ping statistics ---
+--- fi.42.fr ping statistics ---
 4 packets transmitted, 4 received, 0% packet loss, time 3115ms
 rtt min/avg/max/mdev = 0.030/0.042/0.067/0.014 ms
 
-hosts file has akdemir
+hosts file has fi
 
-root@vbox:/home/akdemir# docker logs nginx
+root@vbox:/home/fi# docker logs nginx
 Generating self-signed SSL certificate...
 Generating a RSA private key
 .......+++++
@@ -26,11 +26,11 @@ req: No value provided for Subject Attribute CN, skipped
 /usr/local/bin/setup.sh: line 16: envsubst: command not found
 /usr/local/bin/setup.sh: line 16: envsubst: command not found
 /usr/local/bin/setup.sh: line 16: envsubst: command not found
-root@vbox:/home/akdemir#
+root@vbox:/home/fi#
 
 
 
-root@vbox:/home/akdemir/inc# docker logs nginx
+root@vbox:/home/fi/inc# docker logs nginx
 Generating self-signed SSL certificate...
 Generating a RSA private key
 ..........................................+++++
@@ -55,11 +55,11 @@ nginx: [emerg] invalid number of arguments in "server_name" directive in /etc/ng
 nginx: [emerg] invalid number of arguments in "server_name" directive in /etc/nginx/conf.d/default.conf:6
 nginx: [emerg] invalid number of arguments in "server_name" directive in /etc/nginx/conf.d/default.conf:6
 
-root@vbox:/home/akdemir/inc# docker logs wordpress
+root@vbox:/home/fi/inc# docker logs wordpress
 WordPress not found. Starting installation...
 Waiting for MariaDB connection...
 
-root@vbox:/home/akdemir/inc# docker logs mariadb
+root@vbox:/home/fi/inc# docker logs mariadb
 Warning: World-writable config file '/etc/mysql/mariadb.conf.d/50-server.cnf' is ignored
 Waiting for MariaDB to start...
 Warning: World-writable config file '/etc/mysql/mariadb.conf.d/50-server.cnf' is ignored

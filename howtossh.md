@@ -13,4 +13,4 @@ Guest IP:
 Guest Port: 22
 
 in host:
-ssh akdemir@127.0.0.1 -p 3022
+ssh fi@127.0.0.1 -p 3022

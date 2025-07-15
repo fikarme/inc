@@ -41,15 +41,15 @@ docker-compose -f ./srcs/docker-compose.yml up -d
 Recreating mariadb ... done
 Recreating wordpress ... done
 Recreating nginx     ... done
-root@vbox:/home/akdemir#
+root@vbox:/home/fi#
 
 
-root@vbox:/home/akdemir# docker ps
+root@vbox:/home/fi# docker ps
 CONTAINER ID   IMAGE       COMMAND                  CREATED          STATUS                           PORTS      NAMES
 ae04513c0d61   nginx       "/usr/local/bin/setu…"   30 seconds ago   Restarting (127) 2 seconds ago              nginx
 7852f1b559f9   wordpress   "/usr/local/bin/setu…"   30 seconds ago   Up 30 seconds                    9000/tcp   wordpress
 4957d5e86e7c   mariadb     "/usr/local/bin/setu…"   41 seconds ago   Up 40 seconds                    3306/tcp   mariadb
-root@vbox:/home/akdemir#
+root@vbox:/home/fi#
 
 
 1241a780bf04_nginx | /usr/local/bin/setup.sh: line 16: envsubst: command not found
@@ -70,7 +70,7 @@ mariadb      | Warning: World-writable config file '/etc/mysql/mariadb.conf.d/50
 mariadb      | mysqld is alive
 mariadb      | Warning: World-writable config file '/etc/mysql/mariadb.conf.d/50-server.cnf' is ignored
 
-root@vbox:/home/akdemir# docker images -a
+root@vbox:/home/fi# docker images -a
 REPOSITORY   TAG        IMAGE ID       CREATED             SIZE
 <none>       <none>     81e298776520   2 minutes ago       184MB
 <none>       <none>     abac9dc0d05d   2 minutes ago       184MB
@@ -145,4 +145,4 @@ mariadb      latest     50f81d8d4d6d   5 minutes ago       459MB
 <none>       <none>     825f515e15be   About an hour ago   462MB
 <none>       <none>     14c92f8b03b8   About an hour ago   462MB
 debian       bullseye   2515ee0c5a2e   5 days ago          124MB
-root@vbox:/home/akdemir#
+root@vbox:/home/fi#

@@ -1,15 +1,15 @@
 docker-compose -f ./srcs/docker-compose.yml logs
 Attaching to nginx, wordpress, mariadb
-nginx        | 2025/07/14 14:49:57 [error] 8#8: *2 directory index of "/var/www/html/" is forbidden, client: 172.18.0.1, server: akdemir.42.fr, request: "GET / HTTP/1.1", host: "akdemir.42.fr"
+nginx        | 2025/07/14 14:49:57 [error] 8#8: *2 directory index of "/var/www/html/" is forbidden, client: 172.18.0.1, server: fi.42.fr, request: "GET / HTTP/1.1", host: "fi.42.fr"
 nginx        | 172.18.0.1 - - [14/Jul/2025:14:49:57 +0000] "GET / HTTP/1.1" 403 118 "-" "Mozilla/5.0 (X11; Linux x86_64; rv:128.0) Gecko/20100101 Firefox/128.0"
 nginx        | 172.18.0.1 - - [14/Jul/2025:14:50:51 +0000] "GET / HTTP/1.1" 403 146 "-" "curl/7.74.0"
-nginx        | 2025/07/14 14:50:51 [error] 8#8: *3 directory index of "/var/www/html/" is forbidden, client: 172.18.0.1, server: akdemir.42.fr, request: "GET / HTTP/1.1", host: "akdemir.42.fr"
+nginx        | 2025/07/14 14:50:51 [error] 8#8: *3 directory index of "/var/www/html/" is forbidden, client: 172.18.0.1, server: fi.42.fr, request: "GET / HTTP/1.1", host: "fi.42.fr"
 nginx        | 172.18.0.1 - - [14/Jul/2025:14:50:51 +0000] "GET / HTTP/1.1" 403 146 "-" "curl/7.74.0"
-nginx        | 2025/07/14 14:50:51 [error] 8#8: *4 directory index of "/var/www/html/" is forbidden, client: 172.18.0.1, server: akdemir.42.fr, request: "GET / HTTP/1.1", host: "akdemir.42.fr"
+nginx        | 2025/07/14 14:50:51 [error] 8#8: *4 directory index of "/var/www/html/" is forbidden, client: 172.18.0.1, server: fi.42.fr, request: "GET / HTTP/1.1", host: "fi.42.fr"
 nginx        | 172.18.0.1 - - [14/Jul/2025:14:51:52 +0000] "GET / HTTP/1.1" 403 146 "-" "curl/7.74.0"
-nginx        | 2025/07/14 14:51:52 [error] 8#8: *5 directory index of "/var/www/html/" is forbidden, client: 172.18.0.1, server: akdemir.42.fr, request: "GET / HTTP/1.1", host: "akdemir.42.fr"
+nginx        | 2025/07/14 14:51:52 [error] 8#8: *5 directory index of "/var/www/html/" is forbidden, client: 172.18.0.1, server: fi.42.fr, request: "GET / HTTP/1.1", host: "fi.42.fr"
 nginx        | 172.18.0.1 - - [14/Jul/2025:14:51:53 +0000] "GET / HTTP/1.1" 403 146 "-" "curl/7.74.0"
-nginx        | 2025/07/14 14:51:53 [error] 8#8: *6 directory index of "/var/www/html/" is forbidden, client: 172.18.0.1, server: akdemir.42.fr, request: "GET / HTTP/1.1", host: "akdemir.42.fr"
+nginx        | 2025/07/14 14:51:53 [error] 8#8: *6 directory index of "/var/www/html/" is forbidden, client: 172.18.0.1, server: fi.42.fr, request: "GET / HTTP/1.1", host: "fi.42.fr"
 wordpress    | WordPress not found. Starting installation...
 wordpress    | Waiting for MariaDB connection...
 mariadb      | [INFO] Waiting for MariaDB...
