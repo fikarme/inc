@@ -23,6 +23,12 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 # Create the directory for WordPress files
 RUN mkdir -p /var/www/html
 
+# Create PHP-FPM runtime directory
+RUN mkdir -p /run/php
+
+# Set proper ownership for PHP-FPM
+RUN chown -R www-data:www-data /run/php
+
 # Copy the custom PHP-FPM pool configuration. This is the glow-up.
 COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
 

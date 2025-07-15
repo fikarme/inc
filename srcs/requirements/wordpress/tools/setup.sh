@@ -3,6 +3,8 @@
 # Exit immediately if a command exits with a non-zero status.
 set -e
 
+mkdir -p /run/php
+
 # If wp-config.php doesn't exist, it's a fresh install
 if [ ! -f "/var/www/html/wp-config.php" ]; then
     echo "WordPress not found. Starting installation..."

@@ -86,7 +86,7 @@ volumes:
   wordpressVol:
     driver: local
     driver_opts:
-      type: none
+      type: bind
       o: bind
       device: /home/fi/data/wordpress
 

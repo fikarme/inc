@@ -42,10 +42,10 @@ nuke:
 	- sudo rm -rf $(DIR)
 	- docker stop $$(docker ps -qa)
 	- docker rm $$(docker ps -qa)
-	- docker rmi -f $$(docker images -qa)
-#	- docker rmi -f $$(docker images --format '{{.Repository}}' | grep -v 'debian' | xargs -r docker images -q)
+	- docker rmi -f $$(docker images -q --filter "dangling=true")
+	- docker images --format "table {{.Repository}}:{{.Tag}}\t{{.ID}}" | grep -v "debian" | awk 'NR>1 {print $$2}' | xargs -r docker rmi -f
 	- docker volume rm $$(docker volume ls -q)
-	- docker network rm $$(docker network ls -q)
+	- docker network rm $$(docker network ls -q | grep -v -E "bridge|host|none")
 
 status:
 	docker ps -a
@@ -66,16 +66,14 @@ addhost:
 	fi
 
 debug:
-	echo "=== Container Status ==="
-	docker ps -a
-	echo "=== Volume Status ==="
-	docker volume ls
-	echo "=== Data Directory ==="
-	ls -la $(DIR)
-	echo "=== Volume Inspect ==="
 	docker volume inspect srcs_wordpressVol || echo "Volume not found"
 	docker volume inspect srcs_mariadbVol || echo "Volume not found"
 	$(DCR) -f $(CMP) config
+
+wpdebug:
+	docker logs wordpress --tail 50
+	docker exec wordpress ls -la /var/www/html/ || echo "WordPress container not running"
+	docker exec wordpress ps aux | grep php || echo "No PHP processes"
 
 perms:
 	sudo chown -R $(USR):$(USR) $(DIR)
