@@ -4,6 +4,9 @@ FROM debian:bullseye
 # Tell debconf to not be interactive.
 ENV DEBIAN_FRONTEND=noninteractive
 
+
+RUN echo "#!/bin/sh\nexit 101" > /usr/sbin/policy-rc.d && chmod +x /usr/sbin/policy-rc.d
+
 # Install necessary packages in one go. More efficient, less layers.
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \

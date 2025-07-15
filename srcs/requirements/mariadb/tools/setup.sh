@@ -36,5 +36,6 @@ kill "$PID"
 wait "$PID"
 
 echo "[INFO] MariaDB setup complete."
+
 # Hand control to the CMD
 exec "$@"

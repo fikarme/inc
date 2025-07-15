@@ -2,6 +2,8 @@ FROM debian:bullseye
 
 ENV DEBIAN_FRONTEND=noninteractive
 
+RUN echo "#!/bin/sh\nexit 101" > /usr/sbin/policy-rc.d && chmod +x /usr/sbin/policy-rc.d
+
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         curl \
