@@ -10,7 +10,9 @@ RUN apt-get update && \
     php-fpm \
     php-mysql \
     curl \
-    ca-certificates && \
+    ca-certificates \
+    mariadb-client \
+    netcat-openbsd && \
     rm -rf /var/lib/apt/lists/*
 
 # Download and install wp-cli, the WordPress command-line tool

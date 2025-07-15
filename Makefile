@@ -73,7 +73,7 @@ debug:
 	echo "=== Data Directory ==="
 	ls -la $(DIR)
 	echo "=== Volume Inspect ==="
-	docker volume inspect srcs_wordpressVolx || echo "Volume not found"
+	docker volume inspect srcs_wordpressVol || echo "Volume not found"
 	docker volume inspect srcs_mariadbVol || echo "Volume not found"
 	$(DCR) -f $(CMP) config
 
@@ -83,10 +83,10 @@ perms:
 
 chat:
 	curl -k https://fi.42.fr/
-	docker exec mariadb mysql -u root -p$(cat srcs/secrets/mysql_root_pass) -e "SHOW DATABASES;"
-	docker exec mariadb mysql -u fi -pmeys -e "SHOW DATABASES;"
-	docker exec wordpress mysql -h mariadb -u fi -pmeys -e "SELECT 1;"
-	docker exec mariadb ss -tlnp | grep 3306
-	docker exec wordpress nc -zv mariadb 3306
+	- docker exec mariadb mysql -u root -pmeys -e "SHOW DATABASES;"
+	- docker exec mariadb mysql -u fi -pmeys -e "SHOW DATABASES;"
+	- docker exec wordpress mysql -h mariadb -u fi -pmeys -e "SELECT 1;"
+	- docker exec mariadb ss -tlnp | grep 3306
+	- docker exec wordpress nc -zv mariadb 3306
 
 .PHONY: all build up down stop start fclean re logs nuke status test addhost debug perms
