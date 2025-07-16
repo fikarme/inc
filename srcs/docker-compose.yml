@@ -15,7 +15,6 @@ services:
     container_name: mariadb
     env_file: .env
     environment:
-      # MariaDB looks for specific environment variable names.
       MYSQL_PASSWORD_FILE: /run/secrets/mysql_pass
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql_root_pass
     volumes:
@@ -82,13 +81,13 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/fi/data/mariadb
+      device: /home/akdemir/data/mariadb
   wordpressVol:
     driver: local
     driver_opts:
       type: bind
       o: bind
-      device: /home/fi/data/wordpress
+      device: /home/akdemir/data/wordpress
 
 secrets:
   db_pass:

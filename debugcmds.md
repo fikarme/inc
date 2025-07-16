@@ -10,8 +10,8 @@ docker exec -it nginx nc -zv wordpress 9000
 # Check MariaDB is accessible
 docker exec -it mariadb mariadb -u fi -pmeys -e "SHOW DATABASES;"
 
-grep fi.42.fr /etc/hosts
-# Should show: 127.0.0.1 fi.42.fr
+grep akdemir.42.fr /etc/hosts
+# Should show: 127.0.0.1 akdemir.42.fr
 
 docker exec -it wordpress mariadb -h mariadb -u fi -pmeys -e "SELECT 1;"
 

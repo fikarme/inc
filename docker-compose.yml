@@ -5,21 +5,21 @@ networks:
     name: inception-network
 secrets:
   db_pass:
-    file: /home/fi/inc/srcs/secrets/db_pass
+    file: /home/akdemir/inc/srcs/secrets/db_pass
   db_root_pass:
-    file: /home/fi/inc/srcs/secrets/db_root_pass
+    file: /home/akdemir/inc/srcs/secrets/db_root_pass
   mysql_pass:
-    file: /home/fi/inc/srcs/secrets/mysql_pass
+    file: /home/akdemir/inc/srcs/secrets/mysql_pass
   mysql_root_pass:
-    file: /home/fi/inc/srcs/secrets/mysql_root_pass
+    file: /home/akdemir/inc/srcs/secrets/mysql_root_pass
   wp_admin_pass:
-    file: /home/fi/inc/srcs/secrets/wp_admin_pass
+    file: /home/akdemir/inc/srcs/secrets/wp_admin_pass
   wp_user_pass:
-    file: /home/fi/inc/srcs/secrets/wp_user_pass
+    file: /home/akdemir/inc/srcs/secrets/wp_user_pass
 services:
   mariadb:
     build:
-      context: /home/fi/inc/srcs/requirements/mariadb
+      context: /home/akdemir/inc/srcs/requirements/mariadb
       dockerfile: Dockerfile
     container_name: mariadb
     environment:
@@ -54,7 +54,7 @@ services:
     - mariadbVol:/var/lib/mysql:rw
   nginx:
     build:
-      context: /home/fi/inc/srcs/requirements/nginx
+      context: /home/akdemir/inc/srcs/requirements/nginx
       dockerfile: Dockerfile
     container_name: nginx
     depends_on:
@@ -87,7 +87,7 @@ services:
     - wordpressVol:/var/www/html:rw
   wordpress:
     build:
-      context: /home/fi/inc/srcs/requirements/wordpress
+      context: /home/akdemir/inc/srcs/requirements/wordpress
       dockerfile: Dockerfile
     container_name: wordpress
     depends_on:
@@ -127,12 +127,12 @@ volumes:
   mariadbVol:
     driver: local
     driver_opts:
-      device: /home/fi/data/mariadb
+      device: /home/akdemir/data/mariadb
       o: bind
       type: none
   wordpressVol:
     driver: local
     driver_opts:
-      device: /home/fi/data/wordpress
+      device: /home/akdemir/data/wordpress
       o: bind
       type: none

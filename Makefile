@@ -80,7 +80,7 @@ perms:
 	sudo chmod -R 755 $(DIR)
 
 chat:
-	curl -k https://fi.42.fr/
+	curl -k https://akdemir.42.fr/
 	- docker exec mariadb mysql -u root -pmeys -e "SHOW DATABASES;"
 	- docker exec mariadb mysql -u fi -pmeys -e "SHOW DATABASES;"
 	- docker exec wordpress mysql -h mariadb -u fi -pmeys -e "SELECT 1;"
