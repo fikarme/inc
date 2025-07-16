@@ -1,3 +1,23 @@
+openssl s_client -connect akdemir.42.fr:443 -tls1_2 -servername akdemir.42.fr
+openssl s_client -connect akdemir.42.fr:443 -tls1_3 -servername akdemir.42.fr
+
+docker exec -it mariadb mysql -u root -pmeys
+SHOW DATABASES;
+USE wordpress;
+SHOW TABLES;
+SELECT * FROM wp_comments;
+SELECT comment_ID, comment_content
+FROM wp_comments;
+UPDATE wp_comments
+SET comment_content = 'luv u meys'
+WHERE comment_ID = 2;
+
+ssh akdemir@127.0.0.1 -p 3022
+
+scp -r -P 3022 ./meys akdemir@127.0.0.1:/home/akdemir/
+
+
+
 https://cdimage.debian.org/mirror/cdimage/archive/11.11.0/amd64/iso-cd/
 
 burakdaki mariadb dockerfileda forstman1 gibi script.sh olmaması ve conf dosyalarındaki bind-address satırı
